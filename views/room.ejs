@@ -1,0 +1,10 @@
+
+
+
+<script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+<script>
+    const socket = io.connect('http://localhost:3000');
+    socket.on("connect", () => {
+        console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    });
+</script>

@@ -1,10 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/style.css">
+</head>
 
+<body>
+    <input type="hidden" id="socketId">
+    <div class="container mt-3">
+        <div class="row">
+            <h6>My Room : <span id="my-room"></span> </h6><br>
+        </div>
+        <div class="row">
+            <h6>Friend Connect : <span id="friend-connect">No</span></h6>
+        </div>
+        <div class="row text-center mt-5">
+            <div class="col-6">
+                <video id="my-camera" muted autoplay playsinline></video>
+                <div class="row d-none" id="my-action">
+                    <div class="col-12">
+                        <ul class="nav d-flex justify-content-center">
+                            <li class="bi bi-volume-down action-volume"></li>
+                            <li class="bi bi-telephone action-turn"></li>
+                            <li class="bi bi-camera-video action-camera"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <video id="friend-camera" muted autoplay playsinline>
 
+                </video>
+                <div class="row d-none" id="friend-action">
+                    <div class="col-12">
+                        <ul class="nav d-flex justify-content-center">
+                            <li class="bi bi-volume-down action-volume"></li>
+                            <li class="bi bi-telephone action-turn"></li>
+                            <li class="bi bi-camera-video action-camera"></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary mt-5" id="btn-call"><i class="bi bi-camera-video"></i></button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js"
+    integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/peerjs@1.3.2/dist/peerjs.min.js"></script>
+<script src="/main.js"></script>
 <script>
-    const socket = io.connect('http://localhost:3000');
-    socket.on("connect", () => {
-        console.log(socket.id); // x8WIv7-mJelg7on_ALbx
-    });
 </script>

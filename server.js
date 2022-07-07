@@ -4,6 +4,8 @@ const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
+const ss = require("socket.io-stream");
+const path = require("path");
 
 app.use(express.static("public"));
 
@@ -17,26 +19,30 @@ app.get("/room", (req, res) => {
   res.render("room");
 });
 
-io.on("connection", async (socket) => {
+io.on("connection", (socket) => {
   console.log("a user connected");
-  socket.on("joinRoom", (room) => {
-    socket.join(room);
-    socket.broadcast.to(room).emit("userJoined", socket.id);
-  });
-
-  socket.on("volume-action", (data) => {
-    socket.broadcast.to(data.room).emit("volume-action", data);
-  });
-  socket.on("camera-action", (data) => {
+  socket.on("join-room", data => {
     console.log(data);
-    socket.broadcast.to(data.room).emit("camera-action", data);
-  });
+    socket.join(data.room);
+    socket.broadcast.to(data.room).emit("user-connected", data.id);
 
-  socket.on("cancel-call", (room) => {
-    socket.broadcast.to(room).emit("cancel-call", room);
+    socket.on('disconnect', () => {
+      socket.broadcast.to(data.room).emit('user-disconnected', data.id)
+    })
   });
+  // socket.on("volume-action", (data) => {
+  //   socket.broadcast.to(data.room).emit("volume-action", data);
+  // });
+  // socket.on("camera-action", (data) => {
+  //   console.log(data);
+  //   socket.broadcast.to(data.room).emit("camera-action", data);
+  // });
 
-  socket.on("disconnect", () => {});
+  // socket.on("cancel-call", (room) => {
+  //   socket.broadcast.to(room).emit("cancel-call", room);
+  // });
+
+  // socket.on("disconnect", () => {});
 });
 
 server.listen(process.env.PORT || 3000, () => {
